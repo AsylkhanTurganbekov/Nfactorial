@@ -299,20 +299,24 @@ public class Game  extends JPanel implements ActionListener
         {
             g.setColor(Color.white);
             g.setFont(new Font("serif",Font.BOLD, 60));
-            g.drawString(" Tank 2 Won", 180,380);
+            g.drawString(" Tank 2 Won", 180,250);
             play = false;
             g.setColor(Color.white);
             g.setFont(new Font("serif",Font.BOLD, 30));
-            g.drawString("(Press B to Restart)", 230,430);
+            g.drawString("(Press B to Restart)", 230,300);
+            g.drawString("(Press C to select Map)", 230,350);
+
         }
         else if(player2lives == 0)
         {
             g.setColor(Color.white);
             g.setFont(new Font("serif",Font.BOLD, 60));
-            g.drawString(" Tank 1 Won", 180,380);
+            g.drawString(" Tank 1 Won", 180,250);
             g.setColor(Color.white);
             g.setFont(new Font("serif",Font.BOLD, 30));
-            g.drawString("(Press B to Restart)", 230,430);
+            g.drawString("(Press B to Restart)", 230,300);
+            g.drawString("(Press C to select Map)", 230,350);
+
             play = false;
         }
         g.dispose();
@@ -368,6 +372,15 @@ public class Game  extends JPanel implements ActionListener
                 } while (br.checkWall(player2X, player2Y) || (player2X == player1X && player2Y == player1Y));
 
                 repaint();
+            }
+            if(e.getKeyCode()== KeyEvent.VK_C && (player1lives == 0 || player2lives == 0))
+            {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        backgroundMusic.stop();
+                        MainPage.main(new String[0]);
+                    }
+                });
             }
             if(e.getKeyCode()== KeyEvent.VK_Q)
             {

@@ -1,6 +1,7 @@
 import javax.print.attribute.standard.Media;
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +41,7 @@ public class MainPage extends JFrame implements ActionListener {
         backgroundPanel.add(topPanel, BorderLayout.NORTH);
 
         JLabel titleLabel = new JLabel("Танки на двоих");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        titleLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         topPanel.add(Box.createVerticalStrut(100)); // Adjust the height as desired
         topPanel.add(titleLabel, BorderLayout.SOUTH);
@@ -82,12 +83,19 @@ public class MainPage extends JFrame implements ActionListener {
         JButton button = new JButton(text);
         button.setOpaque(false);
         button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // Add padding to the button
         button.setFocusPainted(false);
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.PLAIN, 18));
         button.setActionCommand(actionCommand);
 
+        // Create a custom border with larger size and transparency
+        Border customBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(255, 255, 255, 100), 4, true),
+                BorderFactory.createEmptyBorder(8, 16, 8, 16));
+        button.setBorder(customBorder);
+
+        // Mouse listener for color change
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setForeground(Color.red);
@@ -101,9 +109,12 @@ public class MainPage extends JFrame implements ActionListener {
         return button;
     }
 
+
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exitButton) {
             backgroundMusic.stop();
+            System.exit(0);// Close the Main class
             dispose();
         } else {
             for (int i = 0; i < mapButtons.length; i++) {
